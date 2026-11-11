@@ -1493,13 +1493,58 @@
       margin-bottom: 0.65rem;
     }
 
+    .skip-link {
+      position: fixed;
+      top: -100px;
+      left: 1rem;
+      z-index: 4000;
+      background: var(--gold-primary);
+      color: var(--bg-obsidian);
+      padding: 0.65rem 1.1rem;
+      border-radius: var(--radius-sm);
+      font-weight: 600;
+      font-size: 0.82rem;
+      text-decoration: none;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      transition: top 0.2s ease;
+    }
+
+    .skip-link:focus {
+      top: 1rem;
+      outline: 2px solid var(--text-ivory);
+      outline-offset: 2px;
+    }
+
+    /* Chromebook & Low-Power Device Rendering Optimization */
+    .story-section,
+    #menu,
+    .gallery-section,
+    #experience,
+    .reservation-section,
+    .contact-section {
+      content-visibility: auto;
+      contain-intrinsic-size: 1px 650px;
+    }
+
+    .menu-empty-state {
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: 3rem 1.5rem;
+      background: var(--bg-card);
+      border: 1px dashed rgba(212, 175, 55, 0.35);
+      border-radius: var(--radius-md);
+    }
+
     .modal-close:focus-visible,
     .btn:focus-visible,
     .filter-btn:focus-visible,
     .diet-chip:focus-visible,
     .hero-thumb-btn:focus-visible,
     .tasting-pill:focus-visible,
-    .gallery-item:focus-visible {
+    .gallery-item:focus-visible,
+    .nav-link:focus-visible,
+    .mobile-menu-btn:focus-visible {
       outline: 2px solid var(--gold-champagne);
       outline-offset: 2px;
     }
@@ -1595,6 +1640,7 @@
   </style>
 </head>
 <body>
+  <a href="#mainContent" class="skip-link">Skip to Main Content</a>
 
   <!-- 1. PREMIUM GLASSMORPHISM NAVIGATION BAR -->
   <header class="navbar" id="navbar">
@@ -1628,8 +1674,8 @@
           <span class="tasting-badge" id="tastingCountBadge">2</span>
         </button>
         <a href="#reservations" class="btn btn-gold">Reserve Table</a>
-        <button type="button" class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle Navigation Menu" aria-expanded="false">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <button type="button" class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle Navigation Menu" aria-expanded="false" aria-controls="mobileDrawer">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
             <line x1="3" y1="6" x2="21" y2="6"></line>
             <line x1="3" y1="12" x2="21" y2="12"></line>
             <line x1="3" y1="18" x2="21" y2="18"></line>
@@ -1638,17 +1684,17 @@
       </div>
     </div>
 
-    <div class="mobile-drawer" id="mobileDrawer" aria-label="Mobile Navigation">
+    <nav class="mobile-drawer" id="mobileDrawer" aria-label="Mobile Navigation" aria-hidden="true">
       <a href="#story" class="mobile-nav-link">Philosophy</a>
       <a href="#menu" class="mobile-nav-link">Signature Menu</a>
       <a href="#gallery" class="mobile-nav-link">Culinary Gallery</a>
       <a href="#experience" class="mobile-nav-link">The Experience</a>
       <a href="#reservations" class="mobile-nav-link">Table Reservations</a>
       <a href="#contact" class="mobile-nav-link">Location &amp; Hours</a>
-    </div>
+    </nav>
   </header>
 
-  <main>
+  <main id="mainContent" tabindex="-1">
     <!-- 2. CINEMATIC HERO SECTION -->
     <section class="hero" id="hero">
       <div class="container hero-grid">
@@ -1703,9 +1749,9 @@
             </div>
           </div>
           <div class="hero-Thumbs" role="group" aria-label="Spotlight Dish Switcher">
-            <button type="button" class="hero-thumb-btn active" data-spot="0">01 &bull; A5 Wagyu &amp; Gold</button>
-            <button type="button" class="hero-thumb-btn" data-spot="1">02 &bull; Uni Saffron Risotto</button>
-            <button type="button" class="hero-thumb-btn" data-spot="2">03 &bull; Valrhona Gold Dome</button>
+            <button type="button" class="hero-thumb-btn active" data-spot="0" aria-pressed="true">01 &bull; A5 Wagyu &amp; Gold</button>
+            <button type="button" class="hero-thumb-btn" data-spot="1" aria-pressed="false">02 &bull; Uni Saffron Risotto</button>
+            <button type="button" class="hero-thumb-btn" data-spot="2" aria-pressed="false">03 &bull; Valrhona Gold Dome</button>
           </div>
         </div>
       </div>
@@ -1767,20 +1813,20 @@
 
         <div class="menu-controls">
           <div class="filter-tabs" role="tablist" aria-label="Menu Category Filter">
-            <button type="button" class="filter-btn active" data-category="all">All Courses</button>
-            <button type="button" class="filter-btn" data-category="starter">Starters &amp; Raw</button>
-            <button type="button" class="filter-btn" data-category="hearth">Hearth &amp; Stone</button>
-            <button type="button" class="filter-btn" data-category="dessert">Pastry &amp; Finale</button>
+            <button type="button" class="filter-btn active" role="tab" aria-selected="true" aria-controls="menuGrid" data-category="all">All Courses</button>
+            <button type="button" class="filter-btn" role="tab" aria-selected="false" aria-controls="menuGrid" data-category="starter">Starters &amp; Raw</button>
+            <button type="button" class="filter-btn" role="tab" aria-selected="false" aria-controls="menuGrid" data-category="hearth">Hearth &amp; Stone</button>
+            <button type="button" class="filter-btn" role="tab" aria-selected="false" aria-controls="menuGrid" data-category="dessert">Pastry &amp; Finale</button>
           </div>
 
-          <div class="dietary-filters" aria-label="Dietary Filter">
-            <button type="button" class="diet-chip active" data-diet="all">All Plates</button>
-            <button type="button" class="diet-chip" data-diet="GF">Gluten-Free (GF)</button>
-            <button type="button" class="diet-chip" data-diet="Vegetarian">Vegetarian</button>
+          <div class="dietary-filters" role="group" aria-label="Dietary Filter">
+            <button type="button" class="diet-chip active" aria-pressed="true" data-diet="all">All Plates</button>
+            <button type="button" class="diet-chip" aria-pressed="false" data-diet="GF">Gluten-Free (GF)</button>
+            <button type="button" class="diet-chip" aria-pressed="false" data-diet="Vegetarian">Vegetarian</button>
           </div>
         </div>
 
-        <div class="menu-grid" id="menuGrid">
+        <div class="menu-grid" id="menuGrid" role="region" aria-live="polite" aria-label="Filtered Signature Menu Courses">
           <!-- Populated dynamically via JS with full fallback support -->
         </div>
       </div>
@@ -1947,25 +1993,25 @@
               <div class="form-grid">
                 <div class="form-group">
                   <label class="form-label" for="resName">Full Name *</label>
-                  <input type="text" id="resName" class="form-control" placeholder="e.g., Aarav Mehta" required autocomplete="name" />
-                  <span class="error-text" id="errName"></span>
+                  <input type="text" id="resName" class="form-control" placeholder="e.g., Aarav Mehta" required autocomplete="name" aria-describedby="errName" />
+                  <span class="error-text" id="errName" role="alert"></span>
                 </div>
 
                 <div class="form-group">
                   <label class="form-label" for="resEmail">Email Address *</label>
-                  <input type="email" id="resEmail" class="form-control" placeholder="aarav.mehta@example.in" required autocomplete="email" />
-                  <span class="error-text" id="errEmail"></span>
+                  <input type="email" id="resEmail" class="form-control" placeholder="aarav.mehta@example.in" required autocomplete="email" aria-describedby="errEmail" />
+                  <span class="error-text" id="errEmail" role="alert"></span>
                 </div>
 
                 <div class="form-group">
                   <label class="form-label" for="resPhone">Phone Number (India / Intl) *</label>
-                  <input type="tel" id="resPhone" class="form-control" placeholder="+91 98765 43210" required autocomplete="tel" />
-                  <span class="error-text" id="errPhone"></span>
+                  <input type="tel" id="resPhone" class="form-control" placeholder="+91 98765 43210" required autocomplete="tel" aria-describedby="errPhone" />
+                  <span class="error-text" id="errPhone" role="alert"></span>
                 </div>
 
                 <div class="form-group">
                   <label class="form-label" for="resGuests">Party Size *</label>
-                  <select id="resGuests" class="form-control" required>
+                  <select id="resGuests" class="form-control" required aria-describedby="errGuests">
                     <option value="1">1 Guest (Counter Seating)</option>
                     <option value="2" selected>2 Guests</option>
                     <option value="3">3 Guests</option>
@@ -1973,24 +2019,24 @@
                     <option value="6">6 Guests</option>
                     <option value="8">8 Guests (Basalt Vault)</option>
                   </select>
-                  <span class="error-text" id="errGuests"></span>
+                  <span class="error-text" id="errGuests" role="alert"></span>
                 </div>
 
                 <div class="form-group">
                   <label class="form-label" for="resDate">Preferred Date *</label>
-                  <input type="date" id="resDate" class="form-control" required />
-                  <span class="error-text" id="errDate"></span>
+                  <input type="date" id="resDate" class="form-control" required aria-describedby="errDate" />
+                  <span class="error-text" id="errDate" role="alert"></span>
                 </div>
 
                 <div class="form-group">
-                  <label class="form-label" for="resTime">Seating Time *</label>
-                  <select id="resTime" class="form-control" required>
-                    <option value="17:30">5:30 PM &bull; Early Twilight Seating</option>
-                    <option value="18:30">6:30 PM &bull; First Hearth Seating</option>
-                    <option value="19:45" selected>7:45 PM &bull; Prime Evening Seating</option>
-                    <option value="21:00">9:00 PM &bull; Late Nocturnal Seating</option>
+                  <label class="form-label" for="resTime">Seating Time (IST) *</label>
+                  <select id="resTime" class="form-control" required aria-describedby="errTime">
+                    <option value="18:30">6:30 PM IST &bull; Early Twilight Seating</option>
+                    <option value="19:15">7:15 PM IST &bull; First Hearth Seating</option>
+                    <option value="20:00" selected>8:00 PM IST &bull; Prime Evening Seating</option>
+                    <option value="21:15">9:15 PM IST &bull; Late Nocturnal Seating</option>
                   </select>
-                  <span class="error-text" id="errTime"></span>
+                  <span class="error-text" id="errTime" role="alert"></span>
                 </div>
 
                 <div class="form-group full">
@@ -2043,6 +2089,10 @@
                 <div>
                   <small>Contact Email</small>
                   <strong id="confEmail">&mdash;</strong>
+                </div>
+                <div style="grid-column: 1 / -1;">
+                  <small>Curated Notes &amp; Tray Selection</small>
+                  <strong id="confNotes">Standard Table Pacing</strong>
                 </div>
               </div>
 
@@ -2192,7 +2242,7 @@
   </footer>
 
   <!-- LIGHTBOX & TASTING TRAY MODAL -->
-  <div class="modal-backdrop" id="appModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+  <div class="modal-backdrop" id="appModal" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="modalTitle">
     <div class="modal-panel">
       <div class="modal-header">
         <h3 class="serif" id="modalTitle" style="font-size: 1.5rem; color: var(--gold-champagne);">Plate Details</h3>
@@ -2348,8 +2398,13 @@
     function openAppModal(triggerEl) {
       const modal = document.getElementById('appModal');
       if (!modal) return;
-      state.lastFocusedTrigger = triggerEl || document.activeElement;
+      if (triggerEl) {
+        state.lastFocusedTrigger = triggerEl;
+      } else if (!modal.classList.contains('open')) {
+        state.lastFocusedTrigger = document.activeElement;
+      }
       modal.classList.add('open');
+      modal.setAttribute('aria-hidden', 'false');
       const closeBtn = document.getElementById('closeModalBtn');
       if (closeBtn) {
         setTimeout(() => closeBtn.focus(), 10);
@@ -2360,6 +2415,7 @@
       const modal = document.getElementById('appModal');
       if (!modal || !modal.classList.contains('open')) return;
       modal.classList.remove('open');
+      modal.setAttribute('aria-hidden', 'true');
       if (state.lastFocusedTrigger && typeof state.lastFocusedTrigger.focus === 'function') {
         state.lastFocusedTrigger.focus();
       }
@@ -2375,6 +2431,33 @@
         const dietMatch = state.activeDiet === 'all' || dish.dietary.includes(state.activeDiet);
         return catMatch && dietMatch;
       });
+
+      if (filtered.length === 0) {
+        grid.innerHTML = `
+          <div class="menu-empty-state">
+            <h3 class="serif" style="font-size: 1.5rem; color: var(--gold-champagne); margin-bottom: 0.5rem;">
+              No Courses Match Both Active Filters
+            </h3>
+            <p style="color: var(--text-stone); font-size: 0.9rem; margin-bottom: 1.15rem;">
+              Our Chef&rsquo;s Hearth can prepare bespoke vegetarian stone-seared courses upon request. Reset the dietary filter to view all courses in this category.
+            </p>
+            <button type="button" class="btn btn-outline" id="resetMenuFiltersBtn">Show All Plates in Category</button>
+          </div>
+        `;
+        const resetBtn = document.getElementById('resetMenuFiltersBtn');
+        if (resetBtn) {
+          resetBtn.addEventListener('click', () => {
+            state.activeDiet = 'all';
+            document.querySelectorAll('.diet-chip').forEach(c => {
+              const isAll = c.getAttribute('data-diet') === 'all';
+              c.classList.toggle('active', isAll);
+              c.setAttribute('aria-pressed', String(isAll));
+            });
+            renderMenu();
+          });
+        }
+        return;
+      }
 
       grid.innerHTML = filtered.map(dish => {
         const inTray = state.tastingTray.includes(dish.id);
@@ -2655,20 +2738,30 @@
         mobileBtn.addEventListener('click', () => {
           const isOpen = mobileDrawer.classList.toggle('open');
           mobileBtn.setAttribute('aria-expanded', String(isOpen));
+          mobileDrawer.setAttribute('aria-hidden', String(!isOpen));
+          if (isOpen) {
+            mobileDrawer.querySelector('a')?.focus();
+          }
         });
         mobileDrawer.querySelectorAll('a').forEach(link => {
           link.addEventListener('click', () => {
             mobileDrawer.classList.remove('open');
             mobileBtn.setAttribute('aria-expanded', 'false');
+            mobileDrawer.setAttribute('aria-hidden', 'true');
           });
         });
       }
 
-      // Hero Spotlight Switcher
-      document.querySelectorAll('.hero-thumb-btn').forEach(btn => {
+      // Hero Spotlight Switcher with ARIA & Keyboard Navigation
+      const heroBtns = Array.from(document.querySelectorAll('.hero-thumb-btn'));
+      heroBtns.forEach((btn, index) => {
         btn.addEventListener('click', () => {
-          document.querySelectorAll('.hero-thumb-btn').forEach(b => b.classList.remove('active'));
+          heroBtns.forEach(b => {
+            b.classList.remove('active');
+            b.setAttribute('aria-pressed', 'false');
+          });
           btn.classList.add('active');
+          btn.setAttribute('aria-pressed', 'true');
           const idx = parseInt(btn.getAttribute('data-spot'), 10) || 0;
           const spot = HERO_SPOTLIGHTS[idx];
           if (!spot) return;
@@ -2689,23 +2782,53 @@
           if (title) title.textContent = spot.title;
           if (price) price.textContent = spot.price;
         });
-      });
 
-      // Menu Category Filter Tabs
-      document.querySelectorAll('.filter-btn').forEach(btn => {
-        btn.addEventListener('click', () => {
-          document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-          btn.classList.add('active');
-          state.activeCategory = btn.getAttribute('data-category') || 'all';
-          renderMenu();
+        btn.addEventListener('keydown', e => {
+          if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') {
+            e.preventDefault();
+            const dir = e.key === 'ArrowRight' ? 1 : -1;
+            const next = heroBtns[(index + dir + heroBtns.length) % heroBtns.length];
+            next.focus();
+            next.click();
+          }
         });
       });
 
-      // Menu Dietary Filter Chips
-      document.querySelectorAll('.diet-chip').forEach(chip => {
+      // Menu Category Filter Tabs with ARIA & Arrow Key Support
+      const categoryTabs = Array.from(document.querySelectorAll('.filter-btn'));
+      categoryTabs.forEach((btn, index) => {
+        btn.addEventListener('click', () => {
+          categoryTabs.forEach(b => {
+            b.classList.remove('active');
+            b.setAttribute('aria-selected', 'false');
+          });
+          btn.classList.add('active');
+          btn.setAttribute('aria-selected', 'true');
+          state.activeCategory = btn.getAttribute('data-category') || 'all';
+          renderMenu();
+        });
+
+        btn.addEventListener('keydown', e => {
+          if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') {
+            e.preventDefault();
+            const dir = e.key === 'ArrowRight' ? 1 : -1;
+            const next = categoryTabs[(index + dir + categoryTabs.length) % categoryTabs.length];
+            next.focus();
+            next.click();
+          }
+        });
+      });
+
+      // Menu Dietary Filter Chips with ARIA state
+      const dietChips = Array.from(document.querySelectorAll('.diet-chip'));
+      dietChips.forEach(chip => {
         chip.addEventListener('click', () => {
-          document.querySelectorAll('.diet-chip').forEach(c => c.classList.remove('active'));
+          dietChips.forEach(c => {
+            c.classList.remove('active');
+            c.setAttribute('aria-pressed', 'false');
+          });
           chip.classList.add('active');
+          chip.setAttribute('aria-pressed', 'true');
           state.activeDiet = chip.getAttribute('data-diet') || 'all';
           renderMenu();
         });
@@ -2888,12 +3011,15 @@
 
           // Populate Frontend-Only Confirmation State
           const refNum = 'S&S-IN-' + Math.floor(1000 + Math.random() * 9000);
+          const notesVal = document.getElementById('resNotes')?.value.trim() || 'Standard Evening Tasting Pacing';
           document.getElementById('confGuestName').textContent = nameInput.value.trim();
           document.getElementById('confRefCode').textContent = refNum;
-          document.getElementById('confDateTime').textContent = `${dateEl.value} at ${timeEl.options[timeEl.selectedIndex].text.split('•')[0].trim()} IST`;
+          document.getElementById('confDateTime').textContent = `${dateEl.value} at ${timeEl.options[timeEl.selectedIndex].text.split('•')[0].trim()}`;
           document.getElementById('confParty').textContent = `${guestsEl.value} Guest(s)`;
           document.getElementById('confZone').textContent = zoneEl.value;
           document.getElementById('confEmail').textContent = emailInput.value.trim();
+          const confNotesEl = document.getElementById('confNotes');
+          if (confNotesEl) confNotesEl.textContent = notesVal;
 
           resForm.style.display = 'none';
           confBox.classList.add('active');
