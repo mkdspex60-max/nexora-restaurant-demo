@@ -1,0 +1,417 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Discover exceptional dining at Saffron & Stone.">
+  <title>Saffron & Stone | Modern Dining</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg: #10110f;
+      --surface: #191a17;
+      --gold: #d6ad70;
+      --text: #f5f0e8;
+      --muted: #aaa69e;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      line-height: 1.6;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    .container { width: min(1120px, 90%); margin: auto; }
+
+    header {
+      position: absolute;
+      top: 0;
+      width: 100%;
+      z-index: 10;
+      border-bottom: 1px solid #ffffff20;
+    }
+
+    nav {
+      min-height: 82px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 25px;
+      letter-spacing: 1px;
+    }
+
+    .logo span { color: var(--gold); }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+      color: #e3ded5;
+      font-size: 13px;
+    }
+
+    .nav-links a:hover { color: var(--gold); }
+
+    .nav-button, .button {
+      background: var(--gold);
+      color: #171510;
+      padding: 13px 22px;
+      display: inline-block;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      border: none;
+      cursor: pointer;
+    }
+
+    .hero {
+      min-height: 720px;
+      display: flex;
+      align-items: center;
+      background:
+        linear-gradient(90deg, #10110ff2 0%, #10110f9c 55%, #10110f30 100%),
+        url('https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=2000&q=85') center/cover;
+    }
+
+    .hero-content { max-width: 650px; padding-top: 80px; }
+
+    .eyebrow {
+      color: var(--gold);
+      text-transform: uppercase;
+      letter-spacing: 4px;
+      font-size: 11px;
+      font-weight: 700;
+      margin-bottom: 22px;
+    }
+
+    h1, h2, h3 { font-family: 'Playfair Display', serif; }
+
+    h1 {
+      font-size: clamp(48px, 7vw, 82px);
+      line-height: 1.08;
+      font-weight: 500;
+      margin-bottom: 24px;
+    }
+
+    h1 span { color: var(--gold); }
+
+    .hero p {
+      color: #d0cbc2;
+      max-width: 460px;
+      font-size: 15px;
+      margin-bottom: 34px;
+    }
+
+    .outline-button {
+      border: 1px solid #ffffff70;
+      padding: 12px 22px;
+      display: inline-block;
+      margin-left: 12px;
+      font-size: 12px;
+    }
+
+    section { padding: 100px 0; }
+
+    .section-heading {
+      text-align: center;
+      margin-bottom: 50px;
+    }
+
+    .section-heading h2 {
+      font-size: clamp(34px, 5vw, 48px);
+      margin-bottom: 12px;
+    }
+
+    .section-heading p { color: var(--muted); font-size: 14px; }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 65px;
+      align-items: center;
+    }
+
+    .about-image {
+      width: 100%;
+      height: 460px;
+      object-fit: cover;
+    }
+
+    .about-text h2 {
+      font-size: 43px;
+      line-height: 1.2;
+      margin-bottom: 22px;
+    }
+
+    .about-text p {
+      color: var(--muted);
+      font-size: 14px;
+      margin-bottom: 20px;
+    }
+
+    .menu-section { background: var(--surface); }
+
+    .menu-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 25px;
+    }
+
+    .menu-card {
+      background: #22231f;
+      overflow: hidden;
+      border: 1px solid #ffffff10;
+    }
+
+    .menu-card img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+      transition: transform .4s;
+    }
+
+    .menu-card:hover img { transform: scale(1.05); }
+
+    .menu-info { padding: 22px; }
+
+    .menu-info h3 { font-size: 21px; margin-bottom: 8px; }
+
+    .menu-info p {
+      color: var(--muted);
+      font-size: 13px;
+      min-height: 42px;
+    }
+
+    .price { color: var(--gold); margin-top: 14px; font-weight: 700; }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr 1fr;
+      gap: 15px;
+    }
+
+    .gallery-grid img {
+      width: 100%;
+      height: 250px;
+      object-fit: cover;
+    }
+
+    .reservation {
+      background: linear-gradient(#10110fbb, #10110fbb),
+      url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1600&q=85') center/cover;
+      text-align: center;
+      padding: 110px 20px;
+    }
+
+    .reservation h2 { font-size: 45px; margin-bottom: 15px; }
+
+    .reservation p { color: #d0cbc2; margin-bottom: 28px; }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 25px;
+      text-align: center;
+    }
+
+    .contact-grid h3 { color: var(--gold); margin-bottom: 10px; }
+
+    .contact-grid p { color: var(--muted); font-size: 13px; }
+
+    footer {
+      background: #090a08;
+      text-align: center;
+      padding: 30px 15px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    footer strong { color: var(--gold); }
+
+    @media(max-width: 760px) {
+      nav { min-height: 70px; }
+      .nav-links {
+        gap: 12px;
+        font-size: 11px;
+      }
+      .nav-button { display: none; }
+      .hero { min-height: 650px; }
+      .about-grid { grid-template-columns: 1fr; gap: 30px; }
+      .about-image { height: 320px; }
+      .menu-grid { grid-template-columns: 1fr; }
+      .gallery-grid { grid-template-columns: 1fr 1fr; }
+      .gallery-grid img { height: 180px; }
+      .contact-grid { grid-template-columns: 1fr; }
+      .reservation h2 { font-size: 35px; }
+      section { padding: 70px 0; }
+    }
+
+    @media(max-width: 420px) {
+      .nav-links { gap: 9px; font-size: 10px; }
+      .logo { font-size: 20px; }
+      .outline-button { margin: 12px 0 0; }
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <div class="container">
+    <nav>
+      <a href="#" class="logo">SAFFRON <span>&</span> STONE</a>
+      <div class="nav-links">
+        <a href="#home">Home</a>
+        <a href="#about">About</a>
+        <a href="#menu">Menu</a>
+        <a href="#contact">Contact</a>
+      </div>
+      <a class="nav-button" href="#reservation">BOOK A TABLE</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="hero" id="home">
+    <div class="container">
+      <div class="hero-content">
+        <div class="eyebrow">An unforgettable dining experience</div>
+        <h1>Where Taste Meets <span>Elegance.</span></h1>
+        <p>
+          Discover thoughtfully crafted dishes, beautiful flavours
+          and moments worth sharing.
+        </p>
+        <a href="#menu" class="button">EXPLORE MENU</a>
+        <a href="#about" class="outline-button">OUR STORY</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="about">
+    <div class="container about-grid">
+      <img class="about-image"
+        src="https://images.unsplash.com/photo-1559339352-11d035aa65de?auto=format&fit=crop&w=1000&q=85"
+        alt="Restaurant dining atmosphere">
+      <div class="about-text">
+        <div class="eyebrow">Our philosophy</div>
+        <h2>More Than Food. It's An Experience.</h2>
+        <p>
+          At Saffron & Stone, we believe every meal should tell
+          a story. Our kitchen combines carefully selected
+          ingredients with creativity and passion.
+        </p>
+        <p>
+          From intimate dinners to special celebrations,
+          every detail is designed to make your visit memorable.
+        </p>
+        <a href="#contact" class="button">DISCOVER MORE</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="menu-section" id="menu">
+    <div class="container">
+      <div class="section-heading">
+        <div class="eyebrow">Our signature selection</div>
+        <h2>Crafted With Passion</h2>
+        <p>A selection of favourites from our kitchen.</p>
+      </div>
+
+      <div class="menu-grid">
+        <article class="menu-card">
+          <img src="https://images.unsplash.com/photo-1476224203421-9ac39bcb3327?auto=format&fit=crop&w=800&q=85" alt="Signature dish">
+          <div class="menu-info">
+            <h3>Garden Fresh Plate</h3>
+            <p>A fresh and colourful selection of seasonal ingredients.</p>
+            <div class="price">₹349</div>
+          </div>
+        </article>
+
+        <article class="menu-card">
+          <img src="https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=800&q=85" alt="Fresh gourmet meal">
+          <div class="menu-info">
+            <h3>Chef's Special Bowl</h3>
+            <p>A balanced blend of flavour, texture and freshness.</p>
+            <div class="price">₹429</div>
+          </div>
+        </article>
+
+        <article class="menu-card">
+          <img src="https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?auto=format&fit=crop&w=800&q=85" alt="Fresh salad">
+          <div class="menu-info">
+            <h3>Signature Salad</h3>
+            <p>Fresh greens with our house-inspired dressing.</p>
+            <div class="price">₹299</div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="gallery">
+    <div class="container">
+      <div class="section-heading">
+        <div class="eyebrow">A glimpse inside</div>
+        <h2>Our Gallery</h2>
+      </div>
+      <div class="gallery-grid">
+        <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=800&q=85" alt="Fine dining">
+        <img src="https://images.unsplash.com/photo-1515003197210-e0cd7184f8b5?auto=format&fit=crop&w=800&q=85" alt="Restaurant food">
+        <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=800&q=85" alt="Restaurant interior">
+      </div>
+    </div>
+  </section>
+
+  <section class="reservation" id="reservation">
+    <div class="eyebrow">Your table awaits</div>
+    <h2>Make It A Moment.</h2>
+    <p>Planning a special evening? Get in touch with our team.</p>
+    <a class="button" href="#contact">CONTACT US</a>
+  </section>
+
+  <section id="contact">
+    <div class="container">
+      <div class="section-heading">
+        <div class="eyebrow">Come say hello</div>
+        <h2>Visit Us</h2>
+      </div>
+      <div class="contact-grid">
+        <div>
+          <h3>Location</h3>
+          <p>Hyderabad, India</p>
+        </div>
+        <div>
+          <h3>Opening Hours</h3>
+          <p>Monday – Sunday<br>12 PM – 11 PM</p>
+        </div>
+        <div>
+          <h3>Get In Touch</h3>
+          <p>hello@example.com<br>+91 00000 00000</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <p>© 2026 Saffron & Stone. Demo website created by <strong>NEXORA STUDIO</strong>.</p>
+</footer>
+
+</body>
+</html>
